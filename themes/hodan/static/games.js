@@ -22,14 +22,85 @@
         return top + mid + bot + '\n ' + label + '  SCORE: ' + score + '  [ESC] QUIT';
     }
 
+    const isTouch = navigator.maxTouchPoints > 0;
+
     function createGameScreen() {
         screen.innerHTML = '<pre class="game-display" id="game-display"></pre>';
         return document.getElementById('game-display');
     }
 
+    function simulateKey(key) {
+        document.dispatchEvent(new KeyboardEvent('keydown', { key: key }));
+    }
+
+    function showTouchControls(type) {
+        removeTouchControls();
+        if (!isTouch) return;
+
+        var overlay = document.createElement('div');
+        overlay.className = 'touch-controls';
+        overlay.id = 'touch-controls';
+
+        if (type === 'snake' || type === 'invaders') {
+            // D-pad + action buttons
+            overlay.innerHTML =
+                '<div class="touch-dpad">' +
+                    '<button class="touch-btn touch-up" data-key="ArrowUp">▲</button>' +
+                    '<div class="touch-dpad-mid">' +
+                        '<button class="touch-btn touch-left" data-key="ArrowLeft">◀</button>' +
+                        '<button class="touch-btn touch-right" data-key="ArrowRight">▶</button>' +
+                    '</div>' +
+                    '<button class="touch-btn touch-down" data-key="ArrowDown">▼</button>' +
+                '</div>' +
+                '<div class="touch-actions">' +
+                    (type === 'invaders' ? '<button class="touch-btn touch-fire" data-key=" ">FIRE</button>' : '') +
+                    '<button class="touch-btn touch-esc" data-key="Escape">ESC</button>' +
+                '</div>';
+        } else if (type === 'pong') {
+            overlay.innerHTML =
+                '<div class="touch-dpad">' +
+                    '<button class="touch-btn touch-up" data-key="ArrowUp">▲</button>' +
+                    '<button class="touch-btn touch-down" data-key="ArrowDown">▼</button>' +
+                '</div>' +
+                '<div class="touch-actions">' +
+                    '<button class="touch-btn touch-esc" data-key="Escape">ESC</button>' +
+                '</div>';
+        }
+
+        screen.appendChild(overlay);
+
+        // Touch event handling with repeat
+        var intervals = {};
+        overlay.querySelectorAll('.touch-btn').forEach(function(btn) {
+            var key = btn.getAttribute('data-key');
+
+            btn.addEventListener('touchstart', function(e) {
+                e.preventDefault();
+                simulateKey(key);
+                if (key !== 'Escape' && key !== ' ') {
+                    intervals[key] = setInterval(function() { simulateKey(key); }, 100);
+                }
+            });
+
+            btn.addEventListener('touchend', function(e) {
+                e.preventDefault();
+                if (intervals[key]) { clearInterval(intervals[key]); delete intervals[key]; }
+                if (key === 'ArrowUp' || key === 'ArrowDown') {
+                    document.dispatchEvent(new KeyboardEvent('keyup', { key: key }));
+                }
+            });
+        });
+    }
+
+    function removeTouchControls() {
+        var el = document.getElementById('touch-controls');
+        if (el) el.remove();
+    }
+
     function stopGame() {
         if (gameLoop) { clearInterval(gameLoop); gameLoop = null; }
         currentGame = null;
+        removeTouchControls();
     }
 
     // === Nixie Counter ===
@@ -145,6 +216,7 @@
         document.addEventListener('keydown', onKey);
         draw();
         gameLoop = setInterval(tick, 120);
+        showTouchControls("snake");
     }
 
     // === Pong ===
@@ -207,6 +279,7 @@
         draw();
         gameLoop = setInterval(tick, 80);
     }
+        showTouchControls("pong");
 
     // === Space Invaders ===
     function startInvaders() {
@@ -337,6 +410,7 @@
         draw();
         gameLoop = setInterval(tick, 60);
     }
+        showTouchControls("invaders");
 
     // === Event Bindings ===
     document.addEventListener('click', function(e) {

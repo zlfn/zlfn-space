@@ -366,6 +366,84 @@ a {
     .ctrl-panel, .ctrl-bars, .ctrl-scope, .ctrl-panel-right { display: none; }
 }
 
+// === TOUCH CONTROLS ===
+.touch-controls {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 0.5rem;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.touch-dpad {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    pointer-events: auto;
+}
+
+.touch-dpad-mid {
+    display: flex;
+    gap: 2px;
+}
+
+.touch-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: flex-end;
+    pointer-events: auto;
+}
+
+.touch-btn {
+    font-family: $mono-font;
+    font-size: 1rem;
+    color: rgba($text-bright, 0.7);
+    background: rgba($bg-body, 0.6);
+    border: 1px solid rgba($mauve, 0.4);
+    padding: 0.6rem 0.8rem;
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+
+    &:active {
+        background: rgba($teal, 0.2);
+        border-color: $teal;
+    }
+}
+
+.touch-fire {
+    font-family: $pixel-font;
+    font-size: 0.5rem;
+    padding: 0.6rem 1.2rem;
+    background: rgba($red, 0.15);
+    border-color: rgba($red, 0.4);
+
+    &:active {
+        background: rgba($red, 0.3);
+        border-color: $red;
+    }
+}
+
+.touch-esc {
+    font-family: $pixel-font;
+    font-size: 0.4rem;
+    padding: 0.4rem 0.8rem;
+    opacity: 0.6;
+}
+
 // === SCANLINE OVERLAY ===
 .scanlines {
     position: fixed;
