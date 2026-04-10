@@ -9,7 +9,7 @@ tags = ["computer-architecture", "series"]
 [extra]
 is_series = true
 series_posts = [
-    "blog/computer-architecture-riscv.md",
+    "blog/computer-architecture-riscv/index.md",
 ]
 +++
 
