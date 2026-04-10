@@ -403,13 +403,12 @@ a {
 
 .touch-btn {
     font-family: $mono-font;
-    font-size: 1rem;
+    font-size: 1.4rem;
     color: rgba($text-bright, 0.7);
     background: rgba($bg-body, 0.6);
     border: 1px solid rgba($mauve, 0.4);
-    padding: 0.6rem 0.8rem;
-    min-width: 44px;
-    min-height: 44px;
+    width: 56px;
+    height: 56px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -424,10 +423,20 @@ a {
     }
 }
 
+.touch-center {
+    width: 56px;
+    height: 56px;
+    background: transparent;
+    border: none;
+    pointer-events: none;
+}
+
 .touch-fire {
     font-family: $pixel-font;
-    font-size: 0.5rem;
-    padding: 0.6rem 1.2rem;
+    font-size: 0.7rem;
+    width: auto;
+    height: 56px;
+    padding: 0 1.5rem;
     background: rgba($red, 0.15);
     border-color: rgba($red, 0.4);
 
@@ -435,13 +444,6 @@ a {
         background: rgba($red, 0.3);
         border-color: $red;
     }
-}
-
-.touch-esc {
-    font-family: $pixel-font;
-    font-size: 0.4rem;
-    padding: 0.4rem 0.8rem;
-    opacity: 0.6;
 }
 
 // === SCANLINE OVERLAY ===

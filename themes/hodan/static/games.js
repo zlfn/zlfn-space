@@ -41,29 +41,33 @@
         overlay.className = 'touch-controls';
         overlay.id = 'touch-controls';
 
-        if (type === 'snake' || type === 'invaders') {
-            // D-pad + action buttons
+        if (type === 'snake') {
             overlay.innerHTML =
                 '<div class="touch-dpad">' +
                     '<button class="touch-btn touch-up" data-key="ArrowUp">▲</button>' +
                     '<div class="touch-dpad-mid">' +
                         '<button class="touch-btn touch-left" data-key="ArrowLeft">◀</button>' +
+                        '<button class="touch-btn touch-center"></button>' +
                         '<button class="touch-btn touch-right" data-key="ArrowRight">▶</button>' +
                     '</div>' +
                     '<button class="touch-btn touch-down" data-key="ArrowDown">▼</button>' +
+                '</div>';
+        } else if (type === 'invaders') {
+            overlay.innerHTML =
+                '<div class="touch-dpad">' +
+                    '<div class="touch-dpad-mid">' +
+                        '<button class="touch-btn touch-left" data-key="ArrowLeft">◀</button>' +
+                        '<button class="touch-btn touch-right" data-key="ArrowRight">▶</button>' +
+                    '</div>' +
                 '</div>' +
                 '<div class="touch-actions">' +
-                    (type === 'invaders' ? '<button class="touch-btn touch-fire" data-key=" ">FIRE</button>' : '') +
-                    '<button class="touch-btn touch-esc" data-key="Escape">ESC</button>' +
+                    '<button class="touch-btn touch-fire" data-key=" ">FIRE</button>' +
                 '</div>';
         } else if (type === 'pong') {
             overlay.innerHTML =
                 '<div class="touch-dpad">' +
                     '<button class="touch-btn touch-up" data-key="ArrowUp">▲</button>' +
                     '<button class="touch-btn touch-down" data-key="ArrowDown">▼</button>' +
-                '</div>' +
-                '<div class="touch-actions">' +
-                    '<button class="touch-btn touch-esc" data-key="Escape">ESC</button>' +
                 '</div>';
         }
 
