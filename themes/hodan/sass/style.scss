@@ -1557,7 +1557,7 @@ $crt-text: #d4c8a0;
     }
 
     // === TABLE — box-drawing style ===
-    table {
+    table { display: block; overflow-x: auto;
         width: 100%;
         border-collapse: collapse;
         margin-bottom: 1.5rem;
