@@ -204,7 +204,7 @@
     </div>
     <script>
     if(localStorage.getItem('license-dismissed')) document.getElementById('license-popup').style.display='none';
-    if(navigator.maxTouchPoints > 0) {
+    if(window.innerWidth <= 700) {
         document.addEventListener('click', function(e) {
             var popup = document.getElementById('license-popup');
             if(popup && popup.style.display !== 'none' && !popup.contains(e.target)) {
