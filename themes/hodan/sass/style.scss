@@ -1180,6 +1180,20 @@ $crt-text: #d4c8a0;
     }
 }
 
+.hero-side-robots {
+    background: darken($teal, 10%);
+    color: #fff;
+    border-top-color: lighten($teal, 5%);
+    border-right-color: darken($teal, 20%);
+    border-bottom-color: darken($teal, 20%);
+    box-shadow: 3px 2px 0 darken($teal, 25%);
+
+    &:hover {
+        background: $teal;
+        text-shadow: 0 0 6px rgba(#fff, 0.5);
+    }
+}
+
 @media (max-width: 1300px) {
     .hero-side-tabs { display: none; }
 }
