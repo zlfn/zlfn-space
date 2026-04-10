@@ -5,7 +5,15 @@
 {% block content %}
 <section class="guestbook">
     <h1 class="section-title"><span class="title-deco">&gt;&gt;</span> GUESTBOOK <span class="title-deco">&lt;&lt;</span></h1>
-    <p class="guestbook-desc">블로그 방문을 환영합니다<br>자유롭게 방명록을 작성해주세요</p>
+    <p class="guestbook-desc">
+        {% if lang == "en" %}
+        Welcome to the blog<br>Feel free to leave a message
+        {% elif lang == "ja" %}
+        ブログへようこそ<br>自由にメッセージを残してください
+        {% else %}
+        블로그 방문을 환영합니다<br>자유롭게 방명록을 작성해주세요
+        {% endif %}
+    </p>
     <div class="guestbook-content">
         <script src="https://giscus.app/client.js"
             data-repo="zlfn/zlfn-space"
