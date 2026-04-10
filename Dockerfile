@@ -8,6 +8,7 @@ FROM debian:trixie-slim
 RUN apt-get update && apt-get install -y git nginx cron && rm -rf /var/lib/apt/lists/*
 COPY --from=zola-builder /usr/local/cargo/bin/zola /usr/local/bin/zola
 
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
