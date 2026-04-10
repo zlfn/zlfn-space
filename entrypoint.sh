@@ -13,7 +13,7 @@ fi
 # Initial build
 echo "[init] Building site..."
 cd "$REPO_DIR"
-if ! zola build -o "$PUBLIC_DIR"; then
+if ! zola build --force -o "$PUBLIC_DIR"; then
     echo "[init] Build failed!"
     exit 1
 fi
@@ -34,7 +34,7 @@ while true; do
         echo "[sync] Update detected ($LOCAL -> $REMOTE)"
         git reset --hard origin/"$BRANCH"
         echo "[sync] Rebuilding..."
-        if zola build -o "$PUBLIC_DIR"; then
+        if zola build --force -o "$PUBLIC_DIR"; then
             echo "[sync] Site updated."
         else
             echo "[sync] Build failed, keeping previous version."
