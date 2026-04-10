@@ -1423,8 +1423,12 @@ $crt-text: #d4c8a0;
     }
 
     // === COPY BUTTON ===
+    .code-wrapper {
+        position: relative;
+    }
+
     .copy-btn {
-        position: sticky; float: right;
+        position: absolute;
         top: 0.4rem;
         right: 0.4rem;
         font-family: $pixel-font;

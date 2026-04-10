@@ -1,5 +1,10 @@
 (function() {
     document.querySelectorAll('.post-content pre').forEach(function(pre) {
+        var wrapper = document.createElement('div');
+        wrapper.className = 'code-wrapper';
+        pre.parentNode.insertBefore(wrapper, pre);
+        wrapper.appendChild(pre);
+
         var btn = document.createElement('button');
         btn.className = 'copy-btn';
         btn.textContent = 'COPY';
@@ -15,7 +20,6 @@
                 }, 1500);
             });
         });
-        pre.style.position = 'relative';
-        pre.appendChild(btn);
+        wrapper.appendChild(btn);
     });
 })();
