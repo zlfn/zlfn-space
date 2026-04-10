@@ -278,8 +278,8 @@
         document.addEventListener('keyup', onKeyUp);
         draw();
         gameLoop = setInterval(tick, 80);
-    }
         showTouchControls("pong");
+    }
 
     // === Space Invaders ===
     function startInvaders() {
@@ -409,8 +409,8 @@
         document.addEventListener('keydown', onKey);
         draw();
         gameLoop = setInterval(tick, 60);
-    }
         showTouchControls("invaders");
+    }
 
     // === Event Bindings ===
     document.addEventListener('click', function(e) {
