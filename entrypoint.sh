@@ -13,7 +13,10 @@ fi
 # Initial build
 echo "[init] Building site..."
 cd "$REPO_DIR"
-zola build -o "$PUBLIC_DIR"
+if ! zola build -o "$PUBLIC_DIR"; then
+    echo "[init] Build failed!"
+    exit 1
+fi
 echo "[init] Site ready."
 
 # Start nginx in background

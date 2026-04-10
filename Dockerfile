@@ -3,7 +3,7 @@ FROM rust:latest AS zola-builder
 RUN cargo install --git https://github.com/getzola/zola --features indexing-ja
 
 # Stage 2: Runtime
-FROM debian:bookworm-slim
+FROM debian:trixie-slim
 
 RUN apt-get update && apt-get install -y git nginx cron && rm -rf /var/lib/apt/lists/*
 COPY --from=zola-builder /usr/local/cargo/bin/zola /usr/local/bin/zola
