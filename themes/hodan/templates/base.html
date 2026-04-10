@@ -185,6 +185,35 @@
         <pre class="ctrl-sysinfo si-time" id="si-time"></pre>
         <pre class="ctrl-sysinfo si-stat" id="si-stat"></pre>
     </div>
+    <div id="license-popup" class="license-popup">
+        <div class="license-popup-inner">
+            <p class="license-popup-text">
+                {% if lang == "en" %}
+                All blog posts are licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a>.<br>
+                To use posts/theme commercially or to support this blog, donate to <a href="https://secure.givewell.org/">GiveWell</a> and send me the receipt :)
+                {% elif lang == "ja" %}
+                すべての記事は <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a> で配布されています。<br>
+                記事/テーマの商用利用やブログの応援をご希望の方は <a href="https://secure.givewell.org/">GiveWell</a>に寄付して領収書を送ってください :)
+                {% else %}
+                모든 블로그 글은 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a> 라이선스로 배포됩니다.<br>
+                글/테마를 상업적으로 이용하시거나 블로그를 응원하고 싶으시다면 <a href="https://secure.givewell.org/">GiveWell</a>에 기부하시고 영수증을 보내주세요 :)
+                {% endif %}
+            </p>
+            <button class="license-popup-close" onclick="document.getElementById('license-popup').style.display='none'; localStorage.setItem('license-dismissed','1');">OK</button>
+        </div>
+    </div>
+    <script>
+    if(localStorage.getItem('license-dismissed')) document.getElementById('license-popup').style.display='none';
+    if(navigator.maxTouchPoints > 0) {
+        document.addEventListener('click', function(e) {
+            var popup = document.getElementById('license-popup');
+            if(popup && popup.style.display !== 'none' && !popup.contains(e.target)) {
+                popup.style.display = 'none';
+                localStorage.setItem('license-dismissed', '1');
+            }
+        });
+    }
+    </script>
     <div class="scanlines"></div>
     <div class="container">
         <header class="site-header">

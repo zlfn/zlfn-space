@@ -447,6 +447,65 @@ a {
     }
 }
 
+// === LICENSE POPUP ===
+.license-popup {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 999;
+    max-width: 550px;
+}
+
+.license-popup-inner {
+    background: $bg-panel;
+    border: 1px solid rgba($mauve, 0.4);
+    border-left: 4px solid $peach;
+    padding: 1rem 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.license-popup-text {
+    font-family: $mono-font;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: $text-primary;
+    margin: 0;
+
+    a {
+        color: $teal;
+        &:hover { color: $peach; }
+    }
+}
+
+.license-popup-close {
+    font-family: $pixel-font;
+    font-size: 0.6rem;
+    letter-spacing: 2px;
+    padding: 0.5rem 1.5rem;
+    background: rgba($peach, 0.12);
+    color: $peach;
+    border: 1px solid rgba($peach, 0.3);
+    cursor: pointer;
+    align-self: flex-end;
+    transition: all 0.2s;
+
+    &:hover {
+        background: rgba($peach, 0.2);
+        text-shadow: 0 0 6px rgba($peach, 0.4);
+    }
+}
+
+@media (max-width: 700px) {
+    .license-popup {
+        right: 10px;
+        left: 10px;
+        max-width: none;
+    }
+}
+
 // === GUESTBOOK ===
 .guestbook {
     padding: 1rem 0;
