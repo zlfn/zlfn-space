@@ -1424,7 +1424,7 @@ $crt-text: #d4c8a0;
 
     // === COPY BUTTON ===
     .copy-btn {
-        position: absolute;
+        position: sticky; float: right;
         top: 0.4rem;
         right: 0.4rem;
         font-family: $pixel-font;
