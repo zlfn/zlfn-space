@@ -447,6 +447,17 @@ a {
     }
 }
 
+// === GUESTBOOK ===
+.guestbook {
+    padding: 1rem 0;
+}
+
+.guestbook-content {
+    background: $bg-panel;
+    padding: 1.5rem;
+    border-left: 4px solid $peach;
+}
+
 // === SCANLINE OVERLAY ===
 .scanlines {
     position: fixed;
