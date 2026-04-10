@@ -452,6 +452,15 @@ a {
     padding: 1rem 0;
 }
 
+.guestbook-desc {
+    font-family: $mono-font;
+    font-size: 0.95rem;
+    color: $text-dim;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    line-height: 1.8;
+}
+
 .guestbook-content {
     background: $bg-panel;
     padding: 1.5rem;
