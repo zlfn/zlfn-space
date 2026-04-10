@@ -2478,7 +2478,7 @@ $crt-text: #d4c8a0;
         padding: 1rem;
     }
     .site-logo { font-size: 0.85rem; }
-    .site-nav { gap: 1.2rem; }
+    .site-nav { gap: 1rem; overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; scrollbar-width: none; &::-webkit-scrollbar { display: none; } }
     .site-nav a { font-size: 0.55rem; padding: 0.5rem 0; }
 
     // Hero
