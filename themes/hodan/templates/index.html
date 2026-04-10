@@ -1,0 +1,229 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="hero">
+    <div class="hero-chassis">
+        <div class="hero-side-tabs">
+            <a class="hero-side-tab hero-side-rss" href="{% if lang == 'ko' %}/rss.xml{% else %}/{{ lang }}/rss.xml{% endif %}">R<br>S<br>S</a>
+            <a class="hero-side-tab hero-side-sitemap" href="/sitemap.xml">M<br>A<br>P</a>
+        </div>
+        <div class="hero-border">
+            <div class="hero-top-bar">
+                <span class="hero-label">TERMINAL v2005.11.2</span>
+                <div class="hero-leds">
+                    <span class="led led-teal"></span>
+                    <span class="led led-peach"></span>
+                    <span class="led led-red"></span>
+                </div>
+            </div>
+            <div class="hero-screen">
+                <div class="boot-sequence">
+                    <div class="boot-line line-1">BIOS POST CHECK ................ <span class="boot-ok">OK</span></div>
+                    <div class="boot-line line-2">MEMORY TEST 640K ............... <span class="boot-ok">OK</span></div>
+                    <div class="boot-line line-3">LOADING KERNEL ................. <span class="boot-ok">OK</span></div>
+                    <div class="boot-line line-4">&nbsp;</div>
+                    <div class="boot-line line-5">
+                        <div class="hero-logo" id="hero-logo"><span class="hero-logo-orig">zlfn</span><span class="hero-logo-dot">.</span><span class="hero-logo-orig">space</span></div>
+                        <script>
+                        (function() {
+                            const el = document.getElementById('hero-logo');
+                            const original = ['z','l','f','n','.','s','p','a','c','e'];
+                            const leet =     ['2','1',null,null,null,'5',null,'4',null,'3'];
+                            function render() {
+                                let out = '';
+                                for (let i = 0; i < original.length; i++) {
+                                    if (original[i] === '.') {
+                                        out += '<span class="hero-logo-dot">.</span>';
+                                    } else if (leet[i] && Math.random() < 0.5) {
+                                        out += '<span class="hero-logo-glitch">' + leet[i] + '</span>';
+                                    } else {
+                                        out += '<span class="hero-logo-orig">' + original[i] + '</span>';
+                                    }
+                                }
+                                el.innerHTML = out;
+                            }
+                            setTimeout(function() {
+                                setInterval(render, 1200 + Math.random() * 800);
+                            }, 3000);
+                        })();
+                        </script>
+                    </div>
+                    <div class="boot-line line-6">&nbsp;</div>
+                    <div class="boot-line line-7">&gt; SYSTEM READY. WELCOME, VISITOR.<span class="cursor">_</span></div>
+                </div>
+                <div class="hero-info">
+                    <div class="info-block">
+                        <div class="info-label">OPERATOR</div>
+                        <div class="info-value">zlfn</div>
+                    </div>
+                    <div class="info-block">
+                        <div class="info-label">ROLE</div>
+                        <div class="info-value">developer / student</div>
+                    </div>
+                    <div class="info-block">
+                        <div class="info-label">STATUS</div>
+                        <div class="info-value"><span class="status-dot-icon"></span> ONLINE</div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-bottom-bar">
+                <span class="hero-label">SYS LOAD: <span class="hero-bar">████████░░</span> 80%</span>
+                <span class="hero-label">MEM: 640K/640K</span>
+            </div>
+        </div>
+        <div class="hero-buttons">
+            <div class="hw-btn-label">PROGRAMS</div>
+            <button class="hw-btn hw-btn-teal" data-game="snake"><pre class="btn-art">
+████
+  ████
+    ████
+  ████
+████
+  ██▶▶
+</pre></button>
+            <button class="hw-btn hw-btn-peach" data-game="pong"><pre class="btn-art">
+██
+██                  ██
+██       ██         ██
+██                  ██
+                    ██
+</pre></button>
+            <button class="hw-btn hw-btn-red" data-game="invaders"><pre class="btn-art">
+    ██          ██
+      ██      ██
+    ██████████████
+  ████  ██████  ████
+██████████████████████
+██  ██████████████  ██
+██  ██          ██  ██
+      ████  ████
+</pre></button>
+            <div class="hw-btn-sep"></div>
+            <div class="hw-btn-label">SYSTEM</div>
+            <button class="hw-btn hw-btn-dim" id="btn-reset"><pre class="btn-art">
+████████
+██    ██
+██    ██
+████████
+██  ██
+██    ██
+██    ██
+</pre></button>
+        </div>
+    </div>
+    <div class="hero-bottom-row">
+        <div class="nixie-counter">
+            <div class="nixie-tubes" id="nixie-tubes">
+                <span class="nixie-digit">0</span>
+                <span class="nixie-digit">0</span>
+                <span class="nixie-digit">0</span>
+                <span class="nixie-digit">0</span>
+                <span class="nixie-digit">0</span>
+                <span class="nixie-digit">0</span>
+                <span class="nixie-digit">0</span>
+                <span class="nixie-digit">0</span>
+            </div>
+        </div>
+        <div class="hero-lang-btns">
+        {% set nav_langs = ["ko:KR", "en:EN", "ja:JA"] %}
+        {% for entry in nav_langs %}
+            {% set parts = entry | split(pat=":") %}
+            {% set lc = parts[0] %}
+            {% set ll = parts[1] %}
+            {% if lc == lang %}
+                <span class="hero-lang-btn hero-lang-active">{{ ll }}</span>
+            {% elif lc == "ko" %}
+                <a class="hero-lang-btn" href="/" onclick="sessionStorage.setItem('lang_manual','1')">{{ ll }}</a>
+            {% else %}
+                <a class="hero-lang-btn" href="/{{ lc }}/" onclick="sessionStorage.setItem('lang_manual','1')">{{ ll }}</a>
+            {% endif %}
+        {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="recent-posts">
+    <h2 class="section-title"><span class="title-deco">&gt;&gt;</span> RECENT TRANSMISSIONS <span class="title-deco">&lt;&lt;</span></h2>
+    {% set blog = get_section(path="blog/_index.md", lang=lang) %}
+    {% set_global regular_count = 0 %}
+    {% for page in blog.pages %}
+    {% if not page.extra.is_series and regular_count < 5 %}
+    {% set_global regular_count = regular_count + 1 %}
+    <article class="post-card">
+        <div class="post-card-border">
+            <div class="post-card-inner">
+                <div class="post-meta">
+                    <span class="post-date">{{ page.date | date(format="%Y.%m.%d") }}</span>
+                    {% if page.taxonomies.tags %}
+                    <span class="post-tags">
+                        {% for tag in page.taxonomies.tags %}
+                        <span class="tag">#{{ tag }}</span>
+                        {% endfor %}
+                    </span>
+                    {% endif %}
+                </div>
+                <div class="post-title-row">
+                    <h3 class="post-title"><a href="{{ page.permalink }}">{{ page.title }}</a></h3>
+                    <span class="post-reading-time">{{ page.reading_time }} min</span>
+                </div>
+                {% if page.description %}
+                <p class="post-excerpt">{{ page.description }}</p>
+                {% endif %}
+            </div>
+        </div>
+    </article>
+    {% endif %}
+    {% endfor %}
+    {% if regular_count == 0 %}
+    <div class="empty-state">&gt; NO TRANSMISSIONS DETECTED YET</div>
+    {% endif %}
+    <div class="more-posts">
+        <a href="{% if lang == 'ko' %}/blog/{% else %}/{{ lang }}/blog/{% endif %}" class="more-btn">[VIEW ALL POSTS]</a>
+    </div>
+</section>
+
+<section class="series-section">
+    <h2 class="section-title"><span class="title-deco-teal">&gt;&gt;</span> SERIAL TRANSMISSIONS <span class="title-deco-teal">&lt;&lt;</span></h2>
+    {% set_global series_count = 0 %}
+    {% for page in blog.pages %}
+    {% if page.extra.is_series %}
+    {% set_global series_count = series_count + 1 %}
+    <article class="post-card series-card">
+        <div class="post-card-border series-card-border">
+            <div class="post-card-inner">
+                <div class="post-meta">
+                    <span class="post-date">{{ page.date | date(format="%Y.%m.%d") }}</span>
+                    <span class="series-badge">SERIES</span>
+                </div>
+                <div class="post-title-row">
+                    <h3 class="post-title"><a href="{{ page.permalink }}">{{ page.title }}</a></h3>
+                    {% if page.extra.series_posts %}
+                    <span class="post-reading-time">{{ page.extra.series_posts | length }} posts</span>
+                    {% endif %}
+                </div>
+                {% if page.description %}
+                <p class="post-excerpt">{{ page.description }}</p>
+                {% endif %}
+                {% if page.extra.series_posts %}
+                <div class="series-preview">
+                    {% set posts_len = page.extra.series_posts | length %}
+                    {% set start = posts_len - 1 %}
+                    {% for sp_path in page.extra.series_posts | slice(start=start) %}
+                    {% set sp = get_page(path=sp_path) %}
+                    <a class="series-preview-item" href="{{ sp.permalink }}">
+                        <span class="series-preview-num">Recent:</span>
+                        <span class="series-preview-title">{{ sp.title }}</span>
+                    </a>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </article>
+    {% endif %}
+    {% endfor %}
+    {% if series_count == 0 %}
+    <div class="empty-state">&gt; NO SERIAL DATA AVAILABLE</div>
+    {% endif %}
+</section>
+{% endblock %}

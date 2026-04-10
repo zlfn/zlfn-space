@@ -1,0 +1,7 @@
+name = "hodan"
+description = "Cassette futurism theme for zlfn.space"
+license = "MIT"
+min_version = "0.19.0"
+
+[author]
+name = "zlfn"

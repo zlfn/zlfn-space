@@ -1,0 +1,41 @@
+# zlfn.space
+base_url = "https://zlfn.space"
+title = "zlfn.space"
+description = "zlfn's digital space"
+default_language = "ko"
+theme = "hodan"
+compile_sass = true
+generate_feeds = true
+feed_filenames = ["rss.xml"]
+build_search_index = true
+
+[search]
+index_format = "elasticlunr_json"
+
+[markdown]
+
+[markdown.highlighting]
+theme = "catppuccin-mocha"
+
+[[taxonomies]]
+name = "tags"
+
+[languages.en]
+title = "zlfn.space"
+build_search_index = true
+generate_feeds = true
+feed_filenames = ["rss.xml"]
+
+[[languages.en.taxonomies]]
+name = "tags"
+
+[languages.ja]
+title = "zlfn.space"
+build_search_index = true
+generate_feeds = true
+feed_filenames = ["rss.xml"]
+
+[[languages.ja.taxonomies]]
+name = "tags"
+
+[extra]

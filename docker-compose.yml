@@ -1,0 +1,10 @@
+services:
+  blog:
+    build: .
+    ports:
+      - "8080:80"
+    environment:
+      - REPO_URL=https://github.com/zlfn/zlfn-space.git
+      - BRANCH=main
+      - SYNC_INTERVAL=60
+    restart: unless-stopped

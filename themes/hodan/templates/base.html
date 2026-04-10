@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="{{ lang | default(value='ko') }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ config.title }}{% endblock %}</title>
+    <link rel="alternate" type="application/rss+xml" title="{{ config.title }}" href="{% if lang == 'ko' %}/rss.xml{% else %}/{{ lang }}/rss.xml{% endif %}">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body, {
+            delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '$', right: '$', display: false}
+            ]
+        });"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: 'Departure Mono';
+            src: url('/fonts/DepartureMono-Regular.otf') format('opentype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'GalmuriMono11';
+            src: url('/fonts/GalmuriMono11.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'GalmuriMono11Code';
+            src: url('/fonts/GalmuriMono11Code.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+    </style>
+</head>
+<body>
+    <div class="reel-bg">
+        <svg class="reel reel-left" viewBox="0 0 200 200" fill="none" stroke="currentColor">
+            <circle cx="100" cy="100" r="90" stroke-width="2" opacity="0.35"/>
+            <circle cx="100" cy="100" r="75" stroke-width="1" opacity="0.25"/>
+            <circle cx="100" cy="100" r="60" stroke-width="1" opacity="0.4"/>
+            <circle cx="100" cy="100" r="30" stroke-width="2" opacity="0.35"/>
+            <circle cx="100" cy="100" r="12" stroke-width="2" opacity="0.4"/>
+            <circle cx="100" cy="100" r="5" fill="currentColor" opacity="0.35"/>
+            <!-- Spokes -->
+            <line x1="100" y1="10" x2="100" y2="70" stroke-width="1.5" opacity="0.25"/>
+            <line x1="100" y1="130" x2="100" y2="190" stroke-width="1.5" opacity="0.25"/>
+            <line x1="10" y1="100" x2="70" y2="100" stroke-width="1.5" opacity="0.25"/>
+            <line x1="130" y1="100" x2="190" y2="100" stroke-width="1.5" opacity="0.25"/>
+            <line x1="36" y1="36" x2="72" y2="72" stroke-width="1" opacity="0.4"/>
+            <line x1="164" y1="164" x2="128" y2="128" stroke-width="1" opacity="0.4"/>
+            <line x1="164" y1="36" x2="128" y2="72" stroke-width="1" opacity="0.4"/>
+            <line x1="36" y1="164" x2="72" y2="128" stroke-width="1" opacity="0.4"/>
+            <!-- Hub holes -->
+            <circle cx="100" cy="80" r="3" stroke-width="1" opacity="0.3"/>
+            <circle cx="100" cy="120" r="3" stroke-width="1" opacity="0.3"/>
+            <circle cx="80" cy="100" r="3" stroke-width="1" opacity="0.3"/>
+            <circle cx="120" cy="100" r="3" stroke-width="1" opacity="0.3"/>
+        </svg>
+        <svg class="reel reel-right" viewBox="0 0 200 200" fill="none" stroke="currentColor">
+            <circle cx="100" cy="100" r="90" stroke-width="2" opacity="0.35"/>
+            <circle cx="100" cy="100" r="75" stroke-width="1" opacity="0.25"/>
+            <circle cx="100" cy="100" r="60" stroke-width="1" opacity="0.4"/>
+            <circle cx="100" cy="100" r="30" stroke-width="2" opacity="0.35"/>
+            <circle cx="100" cy="100" r="12" stroke-width="2" opacity="0.4"/>
+            <circle cx="100" cy="100" r="5" fill="currentColor" opacity="0.35"/>
+            <line x1="100" y1="10" x2="100" y2="70" stroke-width="1.5" opacity="0.25"/>
+            <line x1="100" y1="130" x2="100" y2="190" stroke-width="1.5" opacity="0.25"/>
+            <line x1="10" y1="100" x2="70" y2="100" stroke-width="1.5" opacity="0.25"/>
+            <line x1="130" y1="100" x2="190" y2="100" stroke-width="1.5" opacity="0.25"/>
+            <line x1="36" y1="36" x2="72" y2="72" stroke-width="1" opacity="0.4"/>
+            <line x1="164" y1="164" x2="128" y2="128" stroke-width="1" opacity="0.4"/>
+            <line x1="164" y1="36" x2="128" y2="72" stroke-width="1" opacity="0.4"/>
+            <line x1="36" y1="164" x2="72" y2="128" stroke-width="1" opacity="0.4"/>
+            <circle cx="100" cy="80" r="3" stroke-width="1" opacity="0.3"/>
+            <circle cx="100" cy="120" r="3" stroke-width="1" opacity="0.3"/>
+            <circle cx="80" cy="100" r="3" stroke-width="1" opacity="0.3"/>
+            <circle cx="120" cy="100" r="3" stroke-width="1" opacity="0.3"/>
+        </svg>
+    </div>
+    <div class="ctrl-panel">
+        <svg class="ctrl-gauge ctrl-gauge-x" viewBox="0 0 120 120" fill="none" stroke="currentColor">
+            <circle cx="60" cy="60" r="50" stroke-width="2" opacity="0.35"/>
+            <circle cx="60" cy="60" r="45" stroke-width="1" opacity="0.4"/>
+            <circle cx="60" cy="60" r="5" fill="currentColor" opacity="0.4"/>
+            <!-- Tick marks -->
+            <line x1="60" y1="12" x2="60" y2="18" stroke-width="1.5" opacity="0.35"/>
+            <line x1="60" y1="102" x2="60" y2="108" stroke-width="1.5" opacity="0.35"/>
+            <line x1="12" y1="60" x2="18" y2="60" stroke-width="1.5" opacity="0.35"/>
+            <line x1="102" y1="60" x2="108" y2="60" stroke-width="1.5" opacity="0.35"/>
+            <!-- Needle -->
+            <line id="needle-x" x1="60" y1="60" x2="60" y2="18" stroke-width="2" opacity="0.3" stroke-linecap="round"/>
+        </svg>
+        <svg class="ctrl-gauge ctrl-gauge-y" viewBox="0 0 120 120" fill="none" stroke="currentColor">
+            <circle cx="60" cy="60" r="50" stroke-width="2" opacity="0.35"/>
+            <circle cx="60" cy="60" r="45" stroke-width="1" opacity="0.4"/>
+            <circle cx="60" cy="60" r="5" fill="currentColor" opacity="0.4"/>
+            <line x1="60" y1="12" x2="60" y2="18" stroke-width="1.5" opacity="0.35"/>
+            <line x1="60" y1="102" x2="60" y2="108" stroke-width="1.5" opacity="0.35"/>
+            <line x1="12" y1="60" x2="18" y2="60" stroke-width="1.5" opacity="0.35"/>
+            <line x1="102" y1="60" x2="108" y2="60" stroke-width="1.5" opacity="0.35"/>
+            <line id="needle-y" x1="60" y1="60" x2="60" y2="18" stroke-width="2" opacity="0.3" stroke-linecap="round"/>
+        </svg>
+        <div class="ctrl-labels">
+            <span class="ctrl-label" id="ctrl-x">X: 0000</span>
+            <span class="ctrl-label" id="ctrl-y">Y: 0000</span>
+        </div>
+    </div>
+    <div class="ctrl-bars">
+        <div class="ctrl-bar-row">
+            <span class="ctrl-bar-label">AZ</span>
+            <div class="ctrl-bar-track"><div class="ctrl-bar-fill" id="bar-az"></div></div>
+        </div>
+        <div class="ctrl-bar-row">
+            <span class="ctrl-bar-label">EL</span>
+            <div class="ctrl-bar-track"><div class="ctrl-bar-fill" id="bar-el"></div></div>
+        </div>
+        <div class="ctrl-bar-row">
+            <span class="ctrl-bar-label">VX</span>
+            <div class="ctrl-bar-track"><div class="ctrl-bar-fill" id="bar-vx"></div></div>
+        </div>
+        <div class="ctrl-bar-row">
+            <span class="ctrl-bar-label">VY</span>
+            <div class="ctrl-bar-track"><div class="ctrl-bar-fill" id="bar-vy"></div></div>
+        </div>
+    </div>
+    <div class="ctrl-scope">
+        <div class="ctrl-scope-header">
+            <span class="ctrl-scope-title">SCOPE</span>
+            <div class="ctrl-scope-legend">
+                <span class="ctrl-scope-ch ctrl-scope-ch-x">CH1:X</span>
+                <span class="ctrl-scope-ch ctrl-scope-ch-y">CH2:Y</span>
+            </div>
+        </div>
+        <div class="ctrl-scope-body">
+            <canvas id="scope-canvas" width="300" height="120"></canvas>
+            <div class="ctrl-scope-knobs">
+                <div class="ctrl-knob">
+                    <svg viewBox="0 0 40 40" fill="none" stroke="currentColor">
+                        <circle cx="20" cy="20" r="16" stroke-width="2" opacity="0.4"/>
+                        <circle cx="20" cy="20" r="10" stroke-width="1" opacity="0.35"/>
+                        <circle cx="20" cy="20" r="4" fill="currentColor" opacity="0.35"/>
+                        <line x1="20" y1="20" x2="20" y2="6" stroke-width="2" opacity="0.25"/>
+                    </svg>
+                    <span class="ctrl-knob-label">TIME</span>
+                </div>
+                <div class="ctrl-knob">
+                    <svg viewBox="0 0 40 40" fill="none" stroke="currentColor">
+                        <circle cx="20" cy="20" r="16" stroke-width="2" opacity="0.4"/>
+                        <circle cx="20" cy="20" r="10" stroke-width="1" opacity="0.35"/>
+                        <circle cx="20" cy="20" r="4" fill="currentColor" opacity="0.35"/>
+                        <line x1="20" y1="20" x2="30" y2="10" stroke-width="2" opacity="0.25"/>
+                    </svg>
+                    <span class="ctrl-knob-label">VOLT</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ctrl-panel-right">
+        <pre class="ctrl-sysinfo si-hw" id="si-hw"></pre>
+        <pre class="ctrl-sysinfo si-feat" id="si-feat"></pre>
+        <pre class="ctrl-sysinfo si-media" id="si-media"></pre>
+        <pre class="ctrl-sysinfo si-time" id="si-time"></pre>
+        <pre class="ctrl-sysinfo si-stat" id="si-stat"></pre>
+    </div>
+    <div class="scanlines"></div>
+    <div class="container">
+        <header class="site-header">
+            <div class="header-border">
+                <div class="header-inner">
+                    <a href="{% if lang == 'ko' %}/{% else %}/{{ lang }}/{% endif %}" class="site-logo">
+                        <span class="logo-bracket">[</span>
+                        <span class="logo-text">zlfn.space</span>
+                        <span class="logo-bracket">]</span>
+                    </a>
+                    <nav class="site-nav">
+                        <a href="{% if lang == 'ko' %}/{% else %}/{{ lang }}/{% endif %}">BLOG</a>
+                        <a href="{% if lang == 'ko' %}/tags/{% else %}/{{ lang }}/tags/{% endif %}">TAGS</a>
+                        <a href="{% if lang == 'ko' %}/about/{% else %}/{{ lang }}/about/{% endif %}">ABOUT</a>
+                        <a href="#" id="search-trigger" class="search-btn">[/]</a>
+                    </nav>
+                </div>
+            </div>
+        </header>
+
+        <main class="site-main">
+            {% block content %}{% endblock %}
+        </main>
+
+        <footer class="site-footer">
+            <div class="footer-border">
+                <div class="footer-inner">
+                    <span class="footer-text">&copy; {{ now() | date(format="%Y") }} zlfn.space // POWERED BY <a href="https://www.getzola.org">ZOLA</a> // THEME BY <a href="https://github.com/zlfn">ZLFN</a></span>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <div id="search-overlay" class="search-overlay">
+        <div class="search-modal">
+            <div class="search-header">
+                <span class="search-label">&gt; SEARCH_</span>
+                <input type="text" id="search-input" class="search-input" placeholder="..." autocomplete="off">
+            </div>
+            <div id="search-results" class="search-results"></div>
+            <div class="search-footer">
+                <span class="search-key">[/]</span> open
+                <span class="search-key">[ESC]</span> close
+            </div>
+        </div>
+    </div>
+    <script src="/games.js" defer></script>
+    <script>
+    if (/^((?!chrome|android).)*safari/i.test(navigator.userAgent)) {
+        document.documentElement.classList.add('is-safari');
+    }
+    </script>
+    <script src="/copy-code.js" defer></script>
+    <script src="/reel.js" defer></script>
+    <script src="/ctrl-panel.js" defer></script>
+    <script src="/ctrl-right.js" defer></script>
+    <script src="/ctrl-indicators.js" defer></script>
+    <script src="/nixie.js" defer></script>
+    <script>var SITE_LANG="{{ lang }}";</script>
+    <script src="/elasticlunr.min.js" defer></script>
+    <script src="/search.js" defer></script>
+    <script>
+    (function() {
+        var supported = ['ko', 'en', 'ja'];
+        var defaultLang = 'ko';
+
+        // Don't redirect if user manually chose a language
+        if (sessionStorage.getItem('lang_manual')) return;
+
+        var browserLang = (navigator.language || '').slice(0, 2).toLowerCase();
+        if (supported.indexOf(browserLang) === -1) browserLang = defaultLang;
+        if (browserLang === defaultLang) return;
+
+        var path = window.location.pathname;
+
+        // Already on a language-prefixed page
+        for (var i = 0; i < supported.length; i++) {
+            if (supported[i] !== defaultLang && path.indexOf('/' + supported[i] + '/') === 0) return;
+        }
+
+        // Redirect: /blog/foo/ -> /en/blog/foo/
+        var newPath = '/' + browserLang + path;
+        // Check if the target page exists via a HEAD request
+        var xhr = new XMLHttpRequest();
+        xhr.open('HEAD', newPath, true);
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                window.location.replace(newPath);
+            }
+        };
+        xhr.send();
+    })();
+    </script>
+</body>
+</html>

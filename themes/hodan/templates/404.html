@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}404 // {{ config.title }}{% endblock %}
+
+{% block content %}
+<section class="error-page">
+    <div class="error-terminal">
+        <div class="error-top-bar">
+            <span class="error-label">SYSTEM ERROR</span>
+            <div class="hero-leds">
+                <span class="led led-red"></span>
+                <span class="led led-red"></span>
+                <span class="led led-red"></span>
+            </div>
+        </div>
+        <div class="error-screen">
+            <pre class="error-ascii">
+ ██  ██    ████    ██  ██
+ ██  ██   ██  ██   ██  ██
+ ██████   ██  ██   ██████
+     ██   ██  ██       ██
+     ██    ████        ██
+</pre>
+            <div class="error-text">
+                <p class="error-code">&gt; ERROR: PAGE NOT FOUND</p>
+                <p class="error-desc">&gt; The requested resource does not exist on this server.</p>
+                <p class="error-desc">&gt; Check the URL or return to base.<span class="cursor">_</span></p>
+            </div>
+            <div class="error-actions">
+                <a href="/" class="error-btn">[RETURN TO HOME]</a>
+            </div>
+        </div>
+        <div class="error-bottom-bar">
+            <span class="error-label">ERR 0x0194</span>
+            <span class="error-label">SECTOR NOT FOUND</span>
+        </div>
+    </div>
+</section>
+{% endblock %}

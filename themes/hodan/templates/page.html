@@ -1,0 +1,222 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page.title }} // {{ config.title }}{% endblock %}
+
+{% block content %}
+<article class="post">
+    <div class="post-header-border">
+        <div class="post-header-inner">
+            <div class="post-meta">
+                <span class="post-date">{{ page.date | date(format="%Y.%m.%d") }}</span>
+                {% if page.taxonomies.tags %}
+                <span class="post-tags">
+                    {% for tag in page.taxonomies.tags %}
+                    <span class="tag">#{{ tag }}</span>
+                    {% endfor %}
+                </span>
+                {% endif %}
+            </div>
+            <h1 class="post-title">{{ page.title }}</h1>
+            <span class="post-reading-time">{{ page.reading_time }} min read</span>
+        </div>
+        <div class="lang-switcher">
+            <svg class="lang-globe" viewBox="-50 -50 100 100" fill="none" stroke="currentColor">
+                <!-- left half of globe (round side left, flat cut right) -->
+                <path d="M0 -45 A45 45 0 0 0 0 45" stroke-width="2"/>
+                <line x1="0" y1="-45" x2="0" y2="45" stroke-width="1" opacity="0.3"/>
+                <!-- longitude curves -->
+                <path d="M0 -45 C-20 -45 -35 -25 -35 0 C-35 25 -20 45 0 45" stroke-width="1.2"/>
+                <path d="M0 -45 C-10 -45 -18 -25 -18 0 C-18 25 -10 45 0 45" stroke-width="1"/>
+                <!-- latitude lines -->
+                <path d="M0 -30 C-12 -30 -30 -28 -42 -22" stroke-width="1"/>
+                <path d="M0 -10 C-15 -10 -35 -8 -45 0" stroke-width="1"/>
+                <path d="M0 10 C-15 10 -35 8 -45 0" stroke-width="1" opacity="0.6"/>
+                <path d="M0 30 C-12 30 -30 28 -42 22" stroke-width="1"/>
+                <!-- orbit -->
+                <ellipse cx="-20" cy="0" rx="20" ry="48" stroke-dasharray="4 4" stroke-width="0.8" opacity="0.3"/>
+                <!-- satellite dot -->
+                <circle cx="-38" cy="-18" r="2" fill="currentColor" stroke="none" opacity="0.6"/>
+            </svg>
+            <div class="lang-btns">
+                {% set lang_labels = ["ko:KR", "en:EN", "ja:JA"] %}
+                {% set lang_count = lang_labels | length %}
+                {% set_global idx = 0 %}
+                {% for entry in lang_labels %}
+                    {% set parts = entry | split(pat=":") %}
+                    {% set lang_code = parts[0] %}
+                    {% set lang_label = parts[1] %}
+                    {% if lang_code == page.lang %}
+                        <span class="lang-btn lang-active" style="--i: {{ idx }}; --n: {{ lang_count }};">{{ lang_label }}</span>
+                    {% else %}
+                        {% set_global found = false %}
+                        {% for t in page.translations %}
+                            {% if t.lang == lang_code %}
+                                <a class="lang-btn" href="{{ t.permalink }}" style="--i: {{ idx }}; --n: {{ lang_count }};" onclick="sessionStorage.setItem('lang_manual','1')">{{ lang_label }}</a>
+                                {% set_global found = true %}
+                            {% endif %}
+                        {% endfor %}
+                        {% if not found %}
+                            <span class="lang-btn lang-disabled" style="--i: {{ idx }}; --n: {{ lang_count }};">{{ lang_label }}</span>
+                        {% endif %}
+                    {% endif %}
+                    {% set_global idx = idx + 1 %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    {% if page.extra.series %}
+    <div class="series-banner">
+        <span class="series-label">SERIES</span>
+        <a class="series-name" href="{{ page.extra.series_path }}">{{ page.extra.series }}</a>
+    </div>
+    {% endif %}
+
+    {% if page.extra.is_series %}
+    <div class="series-toc">
+        <div class="series-toc-header">
+            <span class="series-toc-label">SERIES INDEX</span>
+            <span class="series-toc-count">{{ page.extra.series_posts | length }} posts</span>
+        </div>
+        {% for sp_path in page.extra.series_posts %}
+        {% set sp = get_page(path=sp_path) %}
+        <a class="series-toc-item" href="{{ sp.permalink }}">
+            <span class="series-toc-num">{{ loop.index }}.</span>
+            <div class="series-toc-info">
+                <span class="series-toc-title">{{ sp.title }}</span>
+                {% if sp.description %}
+                <span class="series-toc-desc">{{ sp.description }}</span>
+                {% endif %}
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="post-layout">
+        <div class="post-content-border">
+            <div class="post-content">
+                {{ page.content | safe }}
+            </div>
+        </div>
+        {% if page.toc %}
+        <aside class="post-toc">
+            <div class="toc-inner">
+                <div class="toc-title">TOC</div>
+                <ul class="toc-list">
+                    {% for h1 in page.toc %}
+                    <li><a href="{{ h1.permalink }}">{{ h1.title }}</a>
+                        {% if h1.children %}
+                        <ul>
+                            {% for h2 in h1.children %}
+                            <li><a href="{{ h2.permalink }}">{{ h2.title }}</a>
+                                {% if h2.children %}
+                                <ul>
+                                    {% for h3 in h2.children %}
+                                    <li><a href="{{ h3.permalink }}">{{ h3.title }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                                {% endif %}
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </aside>
+        {% endif %}
+    </div>
+    {% if page.extra.series and page.extra.series_path %}
+    {% set sp_folder = page.extra.series_path | trim_start_matches(pat="/") | trim_end_matches(pat="/") %}
+    {% set series_page = get_page(path=sp_folder ~ "/index.md") %}
+    {% if series_page.extra.series_posts %}
+        {% set_global series_prev = false %}
+        {% set_global series_next = false %}
+        {% set_global found_current = false %}
+        {% for sp_path in series_page.extra.series_posts %}
+            {% set sp = get_page(path=sp_path) %}
+            {% if found_current and not series_next %}
+                {% set_global series_next = sp %}
+            {% endif %}
+            {% if sp.permalink == page.permalink %}
+                {% set_global found_current = true %}
+            {% endif %}
+            {% if not found_current %}
+                {% set_global series_prev = sp %}
+            {% endif %}
+        {% endfor %}
+        {% if series_prev or series_next %}
+        <nav class="post-nav">
+            <div class="post-nav-series-label">
+                <a href="{{ page.extra.series_path }}">{{ page.extra.series }}</a>
+            </div>
+            <div class="post-nav-links">
+                {% if series_prev %}
+                <a class="post-nav-item post-nav-prev" href="{{ series_prev.permalink }}">
+                    <span class="post-nav-label">&lt; PREV</span>
+                    <span class="post-nav-title">{{ series_prev.title }}</span>
+                </a>
+                {% else %}
+                <div class="post-nav-item post-nav-empty"></div>
+                {% endif %}
+                {% if series_next %}
+                <a class="post-nav-item post-nav-next" href="{{ series_next.permalink }}">
+                    <span class="post-nav-label">NEXT &gt;</span>
+                    <span class="post-nav-title">{{ series_next.title }}</span>
+                </a>
+                {% else %}
+                <div class="post-nav-item post-nav-empty"></div>
+                {% endif %}
+            </div>
+        </nav>
+        {% endif %}
+    {% endif %}
+    {% endif %}
+
+    <div class="post-comments">
+        <h2 class="comments-title"><span class="title-deco">&gt;&gt;</span> COMMENTS <span class="title-deco">&lt;&lt;</span></h2>
+        <script src="https://giscus.app/client.js"
+            data-repo="zlfn/zlfn-space"
+            data-repo-id="R_kgDOR-d88w"
+            data-category="General"
+            data-category-id="DIC_kwDOR-d8884C6fJz"
+            data-mapping="specific"
+            data-term="{{ page.path | replace(from='/' ~ lang ~ '/', to='/') }}"
+            data-strict="0"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="{{ config.base_url | safe }}/giscus-theme.css"
+            data-lang="{{ lang }}"
+            crossorigin="anonymous"
+            async>
+        </script>
+    </div>
+</article>
+<script>
+(function() {
+    const links = document.querySelectorAll('.toc-list a');
+    if (!links.length) return;
+    const headings = [];
+    links.forEach(function(a) {
+        const id = a.getAttribute('href').split('#')[1];
+        const el = document.getElementById(id);
+        if (el) headings.push({el: el, link: a});
+    });
+    function update() {
+        let current = null;
+        for (let i = 0; i < headings.length; i++) {
+            if (headings[i].el.getBoundingClientRect().top <= 80) {
+                current = i;
+            }
+        }
+        links.forEach(function(a) { a.classList.remove('toc-active'); });
+        if (current !== null) headings[current].link.classList.add('toc-active');
+    }
+    window.addEventListener('scroll', update, {passive: true});
+    update();
+})();
+</script>
+{% endblock %}

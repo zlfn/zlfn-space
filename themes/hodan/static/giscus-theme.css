@@ -1,0 +1,94 @@
+@import url('/fonts/GalmuriMono11.ttf');
+
+main {
+    --color-canvas-default: #1e1628;
+    --color-canvas-subtle: #16101e;
+    --color-canvas-inset: #120e1a;
+    --color-border-default: #2e2333;
+    --color-border-muted: #2e2333;
+    --color-neutral-muted: rgba(99, 41, 68, 0.2);
+    --color-accent-fg: #4b9395;
+    --color-accent-emphasis: #4b9395;
+    --color-attention-fg: #f7aa5f;
+    --color-danger-fg: #e14e3f;
+    --color-success-fg: #4b9395;
+    --color-fg-default: #e0d6da;
+    --color-fg-muted: #8a7880;
+    --color-fg-subtle: #6a5a62;
+    --color-btn-bg: #241830;
+    --color-btn-border: #2e2333;
+    --color-btn-hover-bg: #2e2333;
+    --color-btn-hover-border: #4b9395;
+    --color-btn-active-bg: #1e1628;
+    --color-btn-primary-bg: #4b9395;
+    --color-btn-primary-border: #4b9395;
+    --color-btn-primary-hover-bg: #5aa5a7;
+    --color-btn-primary-text: #f5f0f2;
+    --color-primer-shadow-inset: 0 0 transparent;
+    --color-scale-gray-8: #16101e;
+    --color-scale-blue-1: rgba(75, 147, 149, 0.15);
+}
+
+main,
+main .gsc-comment,
+main .gsc-comment-author,
+main .gsc-timeline,
+main .gsc-header,
+main textarea,
+main input {
+    font-family: 'Departure Mono', 'GalmuriMono11', monospace;
+}
+
+main .gsc-comments > .gsc-comment {
+    border-left: 3px solid #632944;
+    padding-left: 1rem;
+}
+
+main .gsc-comment:hover {
+    border-left-color: #a7012e;
+}
+
+main .gsc-header {
+    border-bottom: 2px solid #2e2333;
+    padding-bottom: 0.5rem;
+}
+
+main .gsc-reactions-button {
+    border-color: #2e2333;
+}
+
+main .gsc-reactions-button:hover {
+    border-color: #f7aa5f;
+    color: #f7aa5f;
+}
+
+main .gsc-reactions-button.has-reacted {
+    border-color: #4b9395;
+    color: #4b9395;
+    background: rgba(75, 147, 149, 0.1);
+}
+
+main .gsc-reply-author-avatar img {
+    border: 1px solid #632944;
+}
+
+main a {
+    color: #4b9395;
+}
+
+main a:hover {
+    color: #f7aa5f;
+}
+
+main .gsc-comment-author-avatar img {
+    border: 2px solid #632944;
+}
+
+main .color-text-secondary,
+main .text-sm {
+    color: #8a7880;
+}
+
+main .gsc-loading-image {
+    filter: invert(1) hue-rotate(180deg);
+}
