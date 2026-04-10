@@ -1425,12 +1425,13 @@ $crt-text: #d4c8a0;
     // === COPY BUTTON ===
     .code-wrapper {
         position: relative;
+        overflow: hidden;
     }
 
     .copy-btn {
         position: absolute;
-        top: 0.4rem;
-        right: 0.4rem;
+        top: 0;
+        right: 0;
         font-family: $pixel-font;
         font-size: 0.5rem;
         letter-spacing: 1px;
