@@ -1951,6 +1951,10 @@ $crt-text: #d4c8a0;
     background: none;
     border-left: none;
     font-size: 0.75rem;
+
+    & + .post-content {
+        padding-top: 0;
+    }
 }
 
 .series-nav-item {
