@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="6" fill="#16101e"/>
+  <!-- [ bracket - red -->
+  <g fill="#e14e3f">
+    <rect x="4" y="9" width="14" height="6"/>
+    <rect x="4" y="9" width="6" height="46"/>
+    <rect x="4" y="49" width="14" height="6"/>
+  </g>
+  <!-- z letter - bright -->
+  <g fill="#f5f0f2">
+    <rect x="21" y="17" width="22" height="6"/>
+    <rect x="37" y="23" width="6" height="6"/>
+    <rect x="33" y="26" width="6" height="6"/>
+    <rect x="29" y="29" width="6" height="6"/>
+    <rect x="25" y="32" width="6" height="6"/>
+    <rect x="21" y="35" width="6" height="6"/>
+    <rect x="21" y="41" width="22" height="6"/>
+  </g>
+  <!-- ] bracket - teal -->
+  <g fill="#4b9395">
+    <rect x="46" y="9" width="14" height="6"/>
+    <rect x="54" y="9" width="6" height="46"/>
+    <rect x="46" y="49" width="14" height="6"/>
+  </g>
+</svg>
