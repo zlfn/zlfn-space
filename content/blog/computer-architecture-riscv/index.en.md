@@ -206,7 +206,7 @@ Since `funct7` is absent compared to R-type, there are some instruction differen
 
 Load instructions that fetch values from memory are also I-Type, with `0000011` in the `opcode` field to indicate a Load, `rs1` as the base, and the 12-bit `imm` as the offset. Depending on `funct3`, these are distinguished into `LW` which reads 32 bits, `LH` which reads 16 bits with sign extension, `LHU` which reads 16 bits with zero extension, `LB` which reads 8 bits, `LBU`, and so on.
 
-Also, immediate values are always limited to 12 bits. Immediate values used in programs are typically small values, and cases requiring large constants are usually rare, so this is an intentional design for optimization. When large constants are absolutely necessary, they can be constructed using U-type instructions or AUIPC, described below. This follows the RISC philosophy of not trying to do everything with a single instruction, but instead solving problems with combinations of simple instructions.
+Also, immediate values are always limited to 12 bits. Immediate values used in programs are typically small values, and cases requiring large constants are usually rare, so this is an intentional design for optimization. When large constants are absolutely necessary, they can be constructed using the U-type instructions LUI or AUIPC, described below. This follows the RISC philosophy of not trying to do everything with a single instruction, but instead solving problems with combinations of simple instructions.
 
 ### S-Type
 Used for storing values to memory.

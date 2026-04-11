@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}{{ section.title }} // {{ config.title }}{% endblock %}
+
+{% block content %}
+<section class="series-section">
+    <h2 class="section-title"><span class="title-deco">&gt;&gt;</span> BLOG <span class="title-deco">&lt;&lt;</span></h2>
+
+    {% if paginator %}
+        {% set pages = paginator.pages %}
+    {% else %}
+        {% set pages = section.pages %}
+    {% endif %}
+
+    {% for page in pages %}
+    <article class="post-card">
+        <div class="post-card-border">
+            <div class="post-card-inner">
+                <div class="post-meta">
+                    {% if page.date %}<span class="post-date">{{ page.date | date(format="%Y.%m.%d") }}</span>{% endif %}
+                    {% if page.taxonomies.tags %}
+                    <span class="post-tags">
+                        {% for tag in page.taxonomies.tags %}
+                        <span class="tag">#{{ tag }}</span>
+                        {% endfor %}
+                    </span>
+                    {% endif %}
+                </div>
+                <div class="post-title-row">
+                    <h3 class="post-title"><a href="{{ page.permalink }}">{{ page.title }}</a></h3>
+                    <span class="post-reading-time">{{ page.reading_time }} min</span>
+                </div>
+                {% if page.description %}
+                <p class="post-excerpt">{{ page.description }}</p>
+                {% endif %}
+            </div>
+        </div>
+    </article>
+    {% endfor %}
+
+    {% if paginator %}
+    <nav class="pagination">
+        {% if paginator.previous %}
+        <a class="pagination-btn" href="{{ paginator.previous }}">&lt; PREV</a>
+        {% endif %}
+        <span class="pagination-info">{{ paginator.current_index }} / {{ paginator.number_pagers }}</span>
+        {% if paginator.next %}
+        <a class="pagination-btn" href="{{ paginator.next }}">NEXT &gt;</a>
+        {% endif %}
+    </nav>
+    {% endif %}
+</section>
+{% endblock %}

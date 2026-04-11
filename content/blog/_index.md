@@ -1,5 +1,6 @@
 +++
-title = "Blog"
+title = "블로그"
+template = "blog.html"
 sort_by = "date"
 paginate_by = 10
 +++
