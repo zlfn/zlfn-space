@@ -126,7 +126,7 @@
             </div>
         </div>
         <div class="hero-lang-btns">
-        {% set nav_langs = ["ko:KR", "en:EN", "ja:JA"] %}
+        {% set nav_langs = ["ko:KO", "en:EN", "ja:JA"] %}
         {% for entry in nav_langs %}
             {% set parts = entry | split(pat=":") %}
             {% set lc = parts[0] %}
@@ -134,7 +134,7 @@
             {% if lc == lang %}
                 <span class="hero-lang-btn hero-lang-active">{{ ll }}</span>
             {% elif lc == "ko" %}
-                <a class="hero-lang-btn" href="/" onclick="sessionStorage.setItem('lang_manual','1')">{{ ll }}</a>
+                <a class="hero-lang-btn" href="/ko/" onclick="sessionStorage.setItem('lang_manual','1')">{{ ll }}</a>
             {% else %}
                 <a class="hero-lang-btn" href="/{{ lc }}/" onclick="sessionStorage.setItem('lang_manual','1')">{{ ll }}</a>
             {% endif %}

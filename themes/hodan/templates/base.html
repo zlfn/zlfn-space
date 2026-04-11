@@ -297,7 +297,6 @@
 
         // Redirect: /blog/foo/ -> /en/blog/foo/
         var newPath = '/' + browserLang + path;
-        // Check if the target page exists via a HEAD request
         var xhr = new XMLHttpRequest();
         xhr.open('HEAD', newPath, true);
         xhr.onload = function() {

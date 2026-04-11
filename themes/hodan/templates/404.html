@@ -3,6 +3,15 @@
 {% block title %}404 // {{ config.title }}{% endblock %}
 
 {% block content %}
+<script>
+(function() {
+    var path = window.location.pathname;
+    if (path.indexOf('/ko/') === 0 || path === '/ko') {
+        sessionStorage.setItem('lang_manual', '1');
+        window.location.replace(path.replace(/^\/ko\/?/, '/') || '/');
+    }
+})();
+</script>
 <section class="error-page">
     <div class="error-terminal">
         <div class="error-top-bar">
