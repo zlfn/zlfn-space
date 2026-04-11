@@ -7,8 +7,7 @@ description = "컴퓨터 성능의 정의와 측정법에 대해 알아봅니다
 tags = ["computer-architecture", "CPU"]
 
 [extra] 
-series = "CSED311: Computer Architecture" 
-series_path ="/blog/series-csed311/" 
+series = "/series/csed311/"
 +++
 
 컴퓨터, CPU의 성능의 정의와 측정법에 대해 알아보겠습니다.

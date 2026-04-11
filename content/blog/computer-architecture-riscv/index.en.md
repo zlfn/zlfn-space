@@ -7,8 +7,7 @@ description = "An introduction to computer architecture and the structure of RIS
 tags = ["computer-architecture", "RISC-V", "CPU"]
 
 [extra]
-series = "CSED311: Computer Architecture"
-series_path = "/blog/series-csed311/"
+series = "/series/csed311/"
 +++
 
 Let's explore computer architecture and the structure of RISC-V CPUs.

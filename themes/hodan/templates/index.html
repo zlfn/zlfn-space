@@ -148,7 +148,7 @@
     {% set blog = get_section(path="blog/_index.md", lang=lang) %}
     {% set_global regular_count = 0 %}
     {% for page in blog.pages %}
-    {% if not page.extra.is_series and regular_count < 5 %}
+    {% if regular_count < 5 %}
     {% set_global regular_count = regular_count + 1 %}
     <article class="post-card">
         <div class="post-card-border">
@@ -185,15 +185,16 @@
 
 <section class="series-section">
     <h2 class="section-title"><span class="title-deco-teal">&gt;&gt;</span> SERIAL TRANSMISSIONS <span class="title-deco-teal">&lt;&lt;</span></h2>
+    {% set series_section = get_section(path="series/_index.md", lang=lang) %}
     {% set_global series_count = 0 %}
-    {% for page in blog.pages %}
-    {% if page.extra.is_series %}
+    {% for page in series_section.pages %}
+    {% if series_count < 5 %}
     {% set_global series_count = series_count + 1 %}
     <article class="post-card series-card">
         <div class="post-card-border series-card-border">
             <div class="post-card-inner">
                 <div class="post-meta">
-                    <span class="post-date">{{ page.date | date(format="%Y.%m.%d") }}</span>
+                    {% if page.updated %}<span class="post-date">{{ page.updated | date(format="%Y.%m.%d") }}</span>{% endif %}
                     <span class="series-badge">SERIES</span>
                 </div>
                 <div class="post-title-row">
@@ -226,5 +227,8 @@
     {% if series_count == 0 %}
     <div class="empty-state">&gt; NO SERIAL DATA AVAILABLE</div>
     {% endif %}
+    <div class="more-posts">
+        <a href="{% if lang == 'ko' %}/series/{% else %}/{{ lang }}/series/{% endif %}" class="more-btn">[VIEW ALL SERIES]</a>
+    </div>
 </section>
 {% endblock %}

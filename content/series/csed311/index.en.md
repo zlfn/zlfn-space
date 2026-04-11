@@ -1,6 +1,6 @@
 +++
 title = "CSED311: Computer Architecture"
-date = 2026-04-10
+updated = 2026-04-11
 description = "A series based on POSTECH's CSED 311 Computer Architecture course."
 
 [taxonomies]

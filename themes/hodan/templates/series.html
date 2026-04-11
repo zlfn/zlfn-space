@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}{{ section.title }} // {{ config.title }}{% endblock %}
+
+{% block content %}
+<section class="series-section">
+    <h2 class="section-title"><span class="title-deco-teal">&gt;&gt;</span> SERIES <span class="title-deco-teal">&lt;&lt;</span></h2>
+
+    {% for page in section.pages %}
+    <article class="post-card series-card">
+        <div class="post-card-border series-card-border">
+            <div class="post-card-inner">
+                <div class="post-meta">
+                    {% if page.updated %}<span class="post-date">{{ page.updated | date(format="%Y.%m.%d") }}</span>{% endif %}
+                    <span class="series-badge">SERIES</span>
+                </div>
+                <div class="post-title-row">
+                    <h3 class="post-title"><a href="{{ page.permalink }}">{{ page.title }}</a></h3>
+                    {% if page.extra.series_posts %}
+                    <span class="post-reading-time">{{ page.extra.series_posts | length }} posts</span>
+                    {% endif %}
+                </div>
+                {% if page.description %}
+                <p class="post-excerpt">{{ page.description }}</p>
+                {% endif %}
+                {% if page.extra.series_posts %}
+                <div class="series-preview">
+                    {% set posts_len = page.extra.series_posts | length %}
+                    {% set start = posts_len - 1 %}
+                    {% for sp_path in page.extra.series_posts | slice(start=start) %}
+                    {% set sp = get_page(path=sp_path) %}
+                    <a class="series-preview-item" href="{{ sp.permalink }}">
+                        <span class="series-preview-num">Recent:</span>
+                        <span class="series-preview-title">{{ sp.title }}</span>
+                    </a>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </article>
+    {% endfor %}
+
+    {% if section.pages | length == 0 %}
+    <div class="empty-state">&gt; NO SERIAL DATA AVAILABLE</div>
+    {% endif %}
+</section>
+{% endblock %}

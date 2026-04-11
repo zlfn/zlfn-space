@@ -7,8 +7,7 @@ description = "Learn about the definition and measurement of computer performanc
 tags = ["computer-architecture", "CPU"]
 
 [extra]
-series = "CSED311: Computer Architecture"
-series_path = "/blog/series-csed311/"
+series = "/series/csed311/"
 +++
 
 Let's explore the definition and measurement of computer and CPU performance.

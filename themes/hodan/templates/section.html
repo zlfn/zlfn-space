@@ -21,12 +21,11 @@
     {% endif %}
 
     {% for page in pages %}
-    {% if not page.extra.is_series %}
     <article class="post-card">
         <div class="post-card-border">
             <div class="post-card-inner">
                 <div class="post-meta">
-                    <span class="post-date">{{ page.date | date(format="%Y.%m.%d") }}</span>
+                    {% if page.date %}<span class="post-date">{{ page.date | date(format="%Y.%m.%d") }}</span>{% endif %}
                     {% if page.taxonomies.tags %}
                     <span class="post-tags">
                         {% for tag in page.taxonomies.tags %}
@@ -45,7 +44,6 @@
             </div>
         </div>
     </article>
-    {% endif %}
     {% endfor %}
 
     {% if paginator %}

@@ -1,6 +1,6 @@
 +++
 title = "CSED311: コンピュータアーキテクチャ"
-date = 2026-04-10
+updated = 2026-04-11
 description = "浦項工科大学校CSED 311コンピュータアーキテクチャの授業内容に基づいたシリーズ"
 
 [taxonomies]

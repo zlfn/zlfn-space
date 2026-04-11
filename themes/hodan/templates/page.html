@@ -7,7 +7,7 @@
     <div class="post-header-border">
         <div class="post-header-inner">
             <div class="post-meta">
-                <span class="post-date">{{ page.date | date(format="%Y.%m.%d") }}</span>
+                {% if page.date %}<span class="post-date">{{ page.date | date(format="%Y.%m.%d") }}</span>{% endif %}
                 {% if page.taxonomies.tags %}
                 <span class="post-tags">
                     {% for tag in page.taxonomies.tags %}
@@ -17,7 +17,17 @@
                 {% endif %}
             </div>
             <h1 class="post-title">{{ page.title }}</h1>
+            {% if page.extra.is_series %}
+                {% if page.extra.series_posts %}
+                <span class="post-reading-time">{{ page.extra.series_posts | length }} posts</span>
+                {% elif lang != config.default_language %}
+                    {% set base_path = page.relative_path | replace(from="index." ~ lang ~ ".md", to="index.md") %}
+                    {% set base_pg = get_page(path=base_path) %}
+                <span class="post-reading-time">{{ base_pg.extra.series_posts | length }} posts</span>
+                {% endif %}
+            {% else %}
             <span class="post-reading-time">{{ page.reading_time }} min read</span>
+            {% endif %}
         </div>
         <div class="lang-switcher">
             <svg class="lang-globe" viewBox="-50 -50 100 100" fill="none" stroke="currentColor">
@@ -66,7 +76,7 @@
     </div>
 
     {% if page.extra.series %}
-    {% set sp_folder = page.extra.series_path | trim_start_matches(pat="/") | trim_end_matches(pat="/") %}
+    {% set sp_folder = page.extra.series | trim_start_matches(pat="/") | trim_end_matches(pat="/") %}
     {% set series_base = get_page(path=sp_folder ~ "/index.md") %}
     {% if lang != config.default_language %}
         {% set series_page = get_page(path=sp_folder ~ "/index." ~ lang ~ ".md") %}
