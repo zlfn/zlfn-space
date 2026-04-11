@@ -1923,7 +1923,6 @@ $crt-text: #d4c8a0;
     padding: 0.6rem 1.5rem;
     background: rgba($teal, 0.08);
     border-left: 4px solid $teal;
-    border-bottom: 1px solid rgba($teal, 0.15);
 }
 
 .series-label {
@@ -1943,6 +1942,45 @@ $crt-text: #d4c8a0;
     &:hover {
         text-shadow: 0 0 8px rgba($peach, 0.5);
     }
+}
+
+.series-nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.3rem 1.5rem 0.5rem;
+    background: linear-gradient(to bottom, rgba($teal, 0.25), rgba($teal, 0.08) 30%, rgba($teal, 0.02) 55%, $bg-panel);
+    border-left: none;
+    font-size: 0.75rem;
+}
+
+.series-nav-item {
+    font-family: $mono-font;
+    font-size: inherit;
+    color: $text-dim;
+    text-decoration: none;
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    &:hover {
+        color: $teal;
+    }
+}
+
+.series-nav-prev {
+    text-align: left;
+    padding-right: 1rem;
+}
+
+.series-nav-next {
+    text-align: right;
+    padding-left: 1rem;
+}
+
+.series-nav-empty {
+    flex: 1;
 }
 
 .series-toc {
@@ -2251,14 +2289,12 @@ $crt-text: #d4c8a0;
 }
 
 .post-nav-series-label {
-    font-family: $pixel-font;
-    font-size: 0.5rem;
-    letter-spacing: 2px;
     text-align: center;
     margin-bottom: 0.8rem;
-    color: $teal;
 
     a {
+        font-family: $mono-font;
+        font-size: 0.95rem;
         color: $teal;
         text-decoration: none;
         &:hover {

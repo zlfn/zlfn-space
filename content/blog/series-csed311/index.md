@@ -1,5 +1,5 @@
 +++
-title = "CSED311: Computer Architecture"
+title = "CSED311: 컴퓨터구조"
 date = 2026-04-10
 description = "포항공과대학교 CSED 311 컴퓨터 구조 수업을 기반으로 정리한 시리즈"
 
@@ -10,6 +10,7 @@ tags = ["computer-architecture", "series"]
 is_series = true
 series_posts = [
     "blog/computer-architecture-riscv/index.md",
+    "blog/computer-performance/index.md"
 ]
 +++
 

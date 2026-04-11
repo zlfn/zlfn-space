@@ -66,35 +66,97 @@
     </div>
 
     {% if page.extra.series %}
+    {% set sp_folder = page.extra.series_path | trim_start_matches(pat="/") | trim_end_matches(pat="/") %}
+    {% set series_base = get_page(path=sp_folder ~ "/index.md") %}
+    {% if lang != config.default_language %}
+        {% set series_page = get_page(path=sp_folder ~ "/index." ~ lang ~ ".md") %}
+    {% else %}
+        {% set series_page = series_base %}
+    {% endif %}
+    {% set_global series_prev = false %}
+    {% set_global series_next = false %}
+    {% if series_base.extra.series_posts %}
+        {% set_global found_current = false %}
+        {% for sp_path in series_base.extra.series_posts %}
+            {% if lang != config.default_language %}
+                {% set sp_lang_path = sp_path | replace(from="index.md", to="index." ~ lang ~ ".md") %}
+                {% set_global sp_resolved = get_page(path=sp_lang_path) %}
+            {% else %}
+                {% set_global sp_resolved = get_page(path=sp_path) %}
+            {% endif %}
+            {% if found_current and not series_next %}
+                {% set_global series_next = sp_resolved %}
+            {% endif %}
+            {% if sp_resolved.permalink == page.permalink %}
+                {% set_global found_current = true %}
+            {% endif %}
+            {% if not found_current %}
+                {% set_global series_prev = sp_resolved %}
+            {% endif %}
+        {% endfor %}
+    {% endif %}
     <div class="series-banner">
         <span class="series-label">SERIES</span>
-        <a class="series-name" href="{{ page.extra.series_path }}">{{ page.extra.series }}</a>
+        <a class="series-name" href="{{ series_page.permalink }}">{{ series_page.title }}</a>
     </div>
     {% endif %}
 
     {% if page.extra.is_series %}
+    {% set_global sp_list = false %}
+    {% if page.extra.series_posts %}
+        {% set_global sp_list = page.extra.series_posts %}
+    {% elif lang != config.default_language %}
+        {% set base_path = page.relative_path | replace(from="index." ~ lang ~ ".md", to="index.md") %}
+        {% set base_page = get_page(path=base_path) %}
+        {% set_global sp_list = base_page.extra.series_posts %}
+    {% endif %}
+    {% if sp_list %}
     <div class="series-toc">
         <div class="series-toc-header">
             <span class="series-toc-label">SERIES INDEX</span>
-            <span class="series-toc-count">{{ page.extra.series_posts | length }} posts</span>
+            <span class="series-toc-count">{{ sp_list | length }} posts</span>
         </div>
-        {% for sp_path in page.extra.series_posts %}
-        {% set sp = get_page(path=sp_path) %}
-        <a class="series-toc-item" href="{{ sp.permalink }}">
+        {% for sp_path in sp_list %}
+        {% if lang != config.default_language %}
+            {% set sp_lang_path = sp_path | replace(from="index.md", to="index." ~ lang ~ ".md") %}
+            {% set_global sp_display = get_page(path=sp_lang_path) %}
+        {% else %}
+            {% set_global sp_display = get_page(path=sp_path) %}
+        {% endif %}
+        <a class="series-toc-item" href="{{ sp_display.permalink }}">
             <span class="series-toc-num">{{ loop.index }}.</span>
             <div class="series-toc-info">
-                <span class="series-toc-title">{{ sp.title }}</span>
-                {% if sp.description %}
-                <span class="series-toc-desc">{{ sp.description }}</span>
+                <span class="series-toc-title">{{ sp_display.title }}</span>
+                {% if sp_display.description %}
+                <span class="series-toc-desc">{{ sp_display.description }}</span>
                 {% endif %}
             </div>
         </a>
         {% endfor %}
     </div>
     {% endif %}
+    {% endif %}
 
     <div class="post-layout">
         <div class="post-content-border">
+            {% if page.extra.series and (series_prev or series_next) %}
+            <div class="series-nav">
+                {% if series_prev %}
+                <a class="series-nav-item series-nav-prev" href="{{ series_prev.permalink }}">
+                    &lt; {{ series_prev.title }}
+                </a>
+                {% else %}
+                <div class="series-nav-item series-nav-empty"></div>
+                {% endif %}
+                {% if series_next %}
+                <a class="series-nav-item series-nav-next" href="{{ series_next.permalink }}">
+                    {{ series_next.title }} &gt;
+                </a>
+                {% else %}
+                <div class="series-nav-item series-nav-empty"></div>
+                {% endif %}
+            </div>
+            {% endif %}
             <div class="post-content">
                 {{ page.content | safe }}
             </div>
@@ -128,51 +190,30 @@
         </aside>
         {% endif %}
     </div>
-    {% if page.extra.series and page.extra.series_path %}
-    {% set sp_folder = page.extra.series_path | trim_start_matches(pat="/") | trim_end_matches(pat="/") %}
-    {% set series_page = get_page(path=sp_folder ~ "/index.md") %}
-    {% if series_page.extra.series_posts %}
-        {% set_global series_prev = false %}
-        {% set_global series_next = false %}
-        {% set_global found_current = false %}
-        {% for sp_path in series_page.extra.series_posts %}
-            {% set sp = get_page(path=sp_path) %}
-            {% if found_current and not series_next %}
-                {% set_global series_next = sp %}
+    {% if page.extra.series and (series_prev or series_next) %}
+    <nav class="post-nav">
+        <div class="post-nav-series-label">
+            <a href="{{ series_page.permalink }}">{{ series_page.title }}</a>
+        </div>
+        <div class="post-nav-links">
+            {% if series_prev %}
+            <a class="post-nav-item post-nav-prev" href="{{ series_prev.permalink }}">
+                <span class="post-nav-label">&lt; PREV</span>
+                <span class="post-nav-title">{{ series_prev.title }}</span>
+            </a>
+            {% else %}
+            <div class="post-nav-item post-nav-empty"></div>
             {% endif %}
-            {% if sp.permalink == page.permalink %}
-                {% set_global found_current = true %}
+            {% if series_next %}
+            <a class="post-nav-item post-nav-next" href="{{ series_next.permalink }}">
+                <span class="post-nav-label">NEXT &gt;</span>
+                <span class="post-nav-title">{{ series_next.title }}</span>
+            </a>
+            {% else %}
+            <div class="post-nav-item post-nav-empty"></div>
             {% endif %}
-            {% if not found_current %}
-                {% set_global series_prev = sp %}
-            {% endif %}
-        {% endfor %}
-        {% if series_prev or series_next %}
-        <nav class="post-nav">
-            <div class="post-nav-series-label">
-                <a href="{{ page.extra.series_path }}">{{ page.extra.series }}</a>
-            </div>
-            <div class="post-nav-links">
-                {% if series_prev %}
-                <a class="post-nav-item post-nav-prev" href="{{ series_prev.permalink }}">
-                    <span class="post-nav-label">&lt; PREV</span>
-                    <span class="post-nav-title">{{ series_prev.title }}</span>
-                </a>
-                {% else %}
-                <div class="post-nav-item post-nav-empty"></div>
-                {% endif %}
-                {% if series_next %}
-                <a class="post-nav-item post-nav-next" href="{{ series_next.permalink }}">
-                    <span class="post-nav-label">NEXT &gt;</span>
-                    <span class="post-nav-title">{{ series_next.title }}</span>
-                </a>
-                {% else %}
-                <div class="post-nav-item post-nav-empty"></div>
-                {% endif %}
-            </div>
-        </nav>
-        {% endif %}
-    {% endif %}
+        </div>
+    </nav>
     {% endif %}
 
     <div class="post-comments">
