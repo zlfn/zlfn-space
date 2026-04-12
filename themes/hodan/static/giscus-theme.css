@@ -1,4 +1,9 @@
 @font-face {
+    font-family: 'Departure Mono';
+    src: url('/fonts/DepartureMono-Regular.woff2') format('woff2');
+    font-display: swap;
+}
+@font-face {
     font-family: 'GalmuriMono11';
     src: url('/fonts/GalmuriMono11.woff2') format('woff2');
     font-display: swap;
