@@ -192,6 +192,16 @@
     {% set_global series_count = series_count + 1 %}
     <article class="post-card series-card">
         <div class="post-card-border series-card-border">
+            {% set_global sp_list = false %}
+            {% if page.extra.series_posts %}
+                {% set_global sp_list = page.extra.series_posts %}
+            {% elif lang != config.default_language %}
+                {% set base_path = page.relative_path | replace(from="index." ~ lang ~ ".md", to="index.md") %}
+                {% set base_page = get_page(path=base_path) %}
+                {% if base_page.extra.series_posts %}
+                    {% set_global sp_list = base_page.extra.series_posts %}
+                {% endif %}
+            {% endif %}
             <div class="post-card-inner">
                 <div class="post-meta">
                     {% if page.updated %}<span class="post-date">{{ page.updated | date(format="%Y.%m.%d") }}</span>{% endif %}
@@ -199,19 +209,29 @@
                 </div>
                 <div class="post-title-row">
                     <h3 class="post-title"><a href="{{ page.permalink }}">{{ page.title }}</a></h3>
-                    {% if page.extra.series_posts %}
-                    <span class="post-reading-time">{{ page.extra.series_posts | length }} posts</span>
+                    {% if sp_list %}
+                    <span class="post-reading-time">{{ sp_list | length }} posts</span>
                     {% endif %}
                 </div>
                 {% if page.description %}
                 <p class="post-excerpt">{{ page.description }}</p>
                 {% endif %}
-                {% if page.extra.series_posts %}
+                {% if sp_list %}
                 <div class="series-preview">
-                    {% set posts_len = page.extra.series_posts | length %}
+                    {% set posts_len = sp_list | length %}
                     {% set start = posts_len - 1 %}
-                    {% for sp_path in page.extra.series_posts | slice(start=start) %}
-                    {% set sp = get_page(path=sp_path) %}
+                    {% for sp_path in sp_list | slice(start=start) %}
+                    {% if lang != config.default_language %}
+                        {% set sp_lang_path = sp_path | replace(from="index.md", to="index." ~ lang ~ ".md") %}
+                        {% set sp_check = load_data(path=sp_lang_path, required=false) %}
+                        {% if sp_check %}
+                            {% set_global sp = get_page(path=sp_lang_path) %}
+                        {% else %}
+                            {% set_global sp = get_page(path=sp_path) %}
+                        {% endif %}
+                    {% else %}
+                        {% set_global sp = get_page(path=sp_path) %}
+                    {% endif %}
                     <a class="series-preview-item" href="{{ sp.permalink }}">
                         <span class="series-preview-num">Recent:</span>
                         <span class="series-preview-title">{{ sp.title }}</span>
