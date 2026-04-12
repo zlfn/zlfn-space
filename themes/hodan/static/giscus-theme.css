@@ -1,4 +1,8 @@
-@import url('/fonts/GalmuriMono11.woff2');
+@font-face {
+    font-family: 'GalmuriMono11';
+    src: url('/fonts/GalmuriMono11.woff2') format('woff2');
+    font-display: swap;
+}
 
 main {
     --color-canvas-default: #1e1628;
