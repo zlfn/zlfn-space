@@ -12,8 +12,8 @@ series = "/series/csed311/"
 
 Let's explore computer architecture and the structure of RISC-V CPUs.
 
-> The content of this post is based on POSTECH's CSED311 course,  
-> supplemented with some additional topics not covered in class.
+> This article is based on the content of POSTECH's CSED311 course,  
+with some additional topics not covered in the lectures.
 
 # What is Architecture?
 Computer architecture is the interface specification between hardware and software.

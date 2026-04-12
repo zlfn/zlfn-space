@@ -10,7 +10,8 @@ tags = ["computer-architecture", "series"]
 is_series = true
 series_posts = [
     "blog/computer-architecture-riscv/index.md",
-    "blog/computer-performance/index.md"
+    "blog/computer-performance/index.md",
+    "blog/computer-pipeline/index.md"
 ]
 +++
 
