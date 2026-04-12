@@ -90,7 +90,12 @@
         {% for sp_path in series_base.extra.series_posts %}
             {% if lang != config.default_language %}
                 {% set sp_lang_path = sp_path | replace(from="index.md", to="index." ~ lang ~ ".md") %}
-                {% set_global sp_resolved = get_page(path=sp_lang_path) %}
+                {% set sp_check = load_data(path=sp_lang_path, required=false) %}
+                {% if sp_check %}
+                    {% set_global sp_resolved = get_page(path=sp_lang_path) %}
+                {% else %}
+                    {% set_global sp_resolved = get_page(path=sp_path) %}
+                {% endif %}
             {% else %}
                 {% set_global sp_resolved = get_page(path=sp_path) %}
             {% endif %}
@@ -129,7 +134,12 @@
         {% for sp_path in sp_list %}
         {% if lang != config.default_language %}
             {% set sp_lang_path = sp_path | replace(from="index.md", to="index." ~ lang ~ ".md") %}
-            {% set_global sp_display = get_page(path=sp_lang_path) %}
+            {% set sp_check = load_data(path=sp_lang_path, required=false) %}
+            {% if sp_check %}
+                {% set_global sp_display = get_page(path=sp_lang_path) %}
+            {% else %}
+                {% set_global sp_display = get_page(path=sp_path) %}
+            {% endif %}
         {% else %}
             {% set_global sp_display = get_page(path=sp_path) %}
         {% endif %}
