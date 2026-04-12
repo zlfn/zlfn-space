@@ -1587,16 +1587,8 @@ $crt-text: #d4c8a0;
         font-size: 1.1em;
         color: $text-bright;
 
-        .mathnormal, .mathit {
-            font-family: $mono-font, KaTeX_Math, serif !important;
-        }
-
-        .mathrm, .textrm, .mathdefault {
-            font-family: $mono-font, KaTeX_Main, serif !important;
-        }
-
-        .mathtt {
-            font-family: $code-font, KaTeX_Main, monospace !important;
+        * {
+            font-family: $mono-font, KaTeX_Math, KaTeX_Main, serif !important;
         }
     }
 
