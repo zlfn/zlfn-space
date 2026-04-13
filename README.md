@@ -9,9 +9,9 @@ The blog is served via Docker on a separate external server.
 The blog posts and the theme in this repository are distributed under different licenses.
 
 ### Blog Posts (`content/`)
-**CC BY-NC-ND 4.0**
+**CC BY-NC-SA 4.0**
 
-All blog posts are licensed under [Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International](https://creativecommons.org/licenses/by-nc-nd/4.0/).
+All blog posts are licensed under [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International](https://creativecommons.org/licenses/by-nc-sa/4.0/).
 
 ### Theme "hodan" (`themes/hodan/`)
 **Modified AGPL License**
