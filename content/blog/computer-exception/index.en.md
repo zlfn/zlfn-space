@@ -4,7 +4,7 @@ date = 2026-04-13T20:51:00+09:00
 description = "Learn about CPU exception handling and how RISC-V CPUs implement interrupts."
 
 [taxonomies]
-tags = ["computer-architecture", "CPU"]
+tags = ["computer-architecture", "CPU", "RISC-V"]
 
 [extra]
 series = "/series/csed311/"

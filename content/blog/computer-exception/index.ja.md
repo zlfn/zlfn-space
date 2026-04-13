@@ -4,7 +4,7 @@ date = 2026-04-13T20:51:00+09:00
 description = "CPUの例外処理と、RISC-V CPUにおける割り込みの実装について見ていきます。"
 
 [taxonomies]
-tags = ["computer-architecture", "CPU"]
+tags = ["computer-architecture", "CPU", "RISC-V"]
 
 [extra]
 series = "/series/csed311/"

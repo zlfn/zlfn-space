@@ -4,7 +4,7 @@ date = 2026-04-13T20:51:00+09:00
 description = "CPU의 예외처리와 RISC-V CPU의 인터럽트 구현에 대해 알아봅니다."
 
 [taxonomies] 
-tags = ["computer-architecture", "CPU"]
+tags = ["computer-architecture", "CPU", "RISC-V"]
 
 [extra] 
 series = "/series/csed311/"
