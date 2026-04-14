@@ -14,6 +14,7 @@ series_posts = [
     "blog/computer-pipeline/index.md",
     "blog/computer-branch-prediction/index.md",
     "blog/computer-exception/index.md",
+    "blog/computer-advanced/index.md",
 ]
 +++
 
